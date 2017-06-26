@@ -1,4 +1,4 @@
-FROM samloh84/oracle-jdk:latest
+FROM samloh84/oracle-jre:8u131-centos7
 
 ARG VENDOR=apache
 ARG PRODUCT=tomcat
@@ -30,6 +30,7 @@ gpg --verify ${TOMCAT_INSTALL_TAR_GZ_ASC} ${TOMCAT_INSTALL_TAR_GZ} && \
 echo "${TOMCAT_INSTALL_TAR_GZ_SHA1SUM}  ${TOMCAT_INSTALL_TAR_GZ}" | sha1sum -c - && \
 tar -xzf ${TEMP_DIR}/${TOMCAT_INSTALL_TAR_GZ} --strip-components=1 -C ${INSTALL_DIR} && \
 fix-permissions ${INSTALL_DIR} && \
+rm -rf ${TEMP_DIR_ROOT} && \
 popd
 
 ENV CATALINA_HOME ${INSTALL_DIR}
