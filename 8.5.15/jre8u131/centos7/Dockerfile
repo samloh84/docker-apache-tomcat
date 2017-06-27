@@ -31,8 +31,9 @@ echo "${TOMCAT_INSTALL_TAR_GZ_SHA1SUM}  ${TOMCAT_INSTALL_TAR_GZ}" | sha1sum -c -
 tar -xzf ${TEMP_DIR}/${TOMCAT_INSTALL_TAR_GZ} --strip-components=1 -C ${INSTALL_DIR} && \
 fix-ownership ${INSTALL_DIR} && \
 fix-permissions ${INSTALL_DIR} && \
-rm -rf ${TEMP_DIR_ROOT} && \
-popd
+popd && \
+rm -rf ${TEMP_DIR_ROOT}
+
 
 ENV CATALINA_HOME ${INSTALL_DIR}
 ENV PATH ${PATH}:${CATALINA_HOME}/bin
