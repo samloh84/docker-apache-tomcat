@@ -1,0 +1,68 @@
+FROM {{ base_image_name }}
+
+{%- import 'macros.j2' as macros -%}
+
+{%- if files['binaries']['.tar.gz'] -%}
+{% set binaries_build_args -%}
+ARG APACHE_TOMCAT_BINARIES_URL="{{ files['binaries']['.tar.gz']['url'] }}"
+ARG APACHE_TOMCAT_BINARIES="{{ files['binaries']['.tar.gz']['filename'] }}"
+{%- endset %}
+{%- if files['binaries']['.tar.gz']['signature'] -%}
+{% set signature_build_args -%}
+ARG APACHE_TOMCAT_GPG_KEYS_URL={{ files['gpg_keys']['url'] }}
+ARG APACHE_TOMCAT_GPG_KEYS={{ files['gpg_keys']['filename'] }}
+ARG APACHE_TOMCAT_SIGNATURE_URL="{{ files['binaries']['.tar.gz']['signature']['url'] }}"
+ARG APACHE_TOMCAT_SIGNATURE="{{ files['binaries']['.tar.gz']['signature']['filename'] }}"
+{%- endset %}
+{% set download_and_verify_signature -%}
+{{ macros.curl('${APACHE_TOMCAT_GPG_KEYS_URL}', '${APACHE_TOMCAT_GPG_KEYS}') }} && \
+{{ macros.curl('${APACHE_TOMCAT_SIGNATURE_URL}', '${APACHE_TOMCAT_SIGNATURE}') }} && \
+{{ macros.import_gpg_key_file('${APACHE_TOMCAT_GPG_KEYS}') }} && \
+{{ macros.curl('${APACHE_TOMCAT_SIGNATURE_URL}', '${APACHE_TOMCAT_SIGNATURE}') }} && \
+{{ macros.gpg_verify('${APACHE_TOMCAT_SIGNATURE}') }} && \
+{%- endset %}
+{%- endif -%}
+{%- endif -%}
+
+ARG VENDOR=apache
+ARG PRODUCT=tomcat
+ARG PRODUCT_VERSION={{ version }}
+ARG TEMP_DIR_ROOT=/tmp/${VENDOR}-${PRODUCT}
+ARG TEMP_DIR=/${TEMP_DIR_ROOT}/${PRODUCT_VERSION}
+ARG INSTALL_DIR_ROOT=/opt/${VENDOR}-${PRODUCT}
+ARG INSTALL_DIR=${INSTALL_DIR_ROOT}/${PRODUCT_VERSION}
+
+{% if binaries_build_args -%}
+{{ binaries_build_args }}
+{%- endif %}
+{% if signature_build_args -%}
+{{ signature_build_args }}
+{%- endif %}
+
+USER ${ROOT_UID}
+
+RUN \
+mkdir -p ${TEMP_DIR} ${INSTALL_DIR} && \
+cd ${TEMP_DIR} && \
+{% if binaries_build_args -%}
+{{ macros.curl('${APACHE_TOMCAT_BINARIES_URL}', '${APACHE_TOMCAT_BINARIES}') }} && \
+{% if download_and_verify_signature -%}
+{{ download_and_verify_signature }}
+{%- endif %}
+{{ macros.extract_tarball('${APACHE_TOMCAT_BINARIES}', '${INSTALL_DIR}') }} && \
+{%- endif %}
+fix-ownership ${INSTALL_DIR} && \
+fix-permissions ${INSTALL_DIR} && \
+rm -rf ${TEMP_DIR_ROOT}
+
+ENV CATALINA_HOME ${INSTALL_DIR}
+ENV PATH ${CATALINA_HOME}/bin:${PATH}
+
+USER ${APP_UID}
+
+WORKDIR ${CATALINA_HOME}
+
+EXPOSE 8080
+EXPOSE 8443
+
+CMD ${CATALINA_HOME}/bin/catalina.sh run

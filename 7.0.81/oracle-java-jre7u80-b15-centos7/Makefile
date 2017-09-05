@@ -1,5 +1,5 @@
 REPOSITORY_NAME := samloh84/apache-tomcat
-TAGS := 8.5.15 8.5.15-jdk8u131 8.5.15-jdk8u131-centos7 latest
+TAGS := 7.0.81 7.0.81-oracle-java-jre7u80-b15-centos7
 CONTAINER_NAME := $(shell echo $(REPOSITORY_NAME) | sed -e 's/[^a-zA-Z0-9_.-]/-/g')
 
 .PHONY: all clean build push bash sudo run exec rm rmi
@@ -22,6 +22,8 @@ run:
 	DOCKER_RUN_ARGS+="--interactive "; \
 	DOCKER_RUN_ARGS+="--rm "; \
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
+	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
+	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME}
 
@@ -32,6 +34,8 @@ bash:
 	DOCKER_RUN_ARGS+="--interactive "; \
 	DOCKER_RUN_ARGS+="--rm "; \
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
+	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
+	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME} bash
 
@@ -44,6 +48,8 @@ sudo:
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
 	DOCKER_RUN_ARGS+="--user 0 "; \
 	DOCKER_RUN_ARGS+="--privileged "; \
+	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
+	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME} bash
 

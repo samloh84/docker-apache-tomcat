@@ -1,0 +1,30 @@
+repository_name: samloh84/apache-tomcat
+base_repositories:
+  - samloh84/oracle-java-jre
+  - samloh84/oracle-java-jdk
+
+templates:
+  - Dockerfile
+  - Makefile
+
+starting_url: http://www-eu.apache.org/dist/tomcat/
+scraper_url_patterns:
+  - http://www-eu.apache.org/dist/tomcat/tomcat-\d+/$
+  - http://www-eu.apache.org/dist/tomcat/tomcat-\d+/v(\d+\.\d+\.\d+(?:\.M\d+)?)/$
+version_url_patterns:
+  - http://www-eu.apache.org/dist/tomcat/tomcat-\d+/v(\d+\.\d+\.\d+(?:\.M\d+)?)/$
+file_patterns:
+  gpg_keys: (\d+\.\d+\.\d+(?:.+))/(KEYS)$
+  binaries:
+      .tar.gz:
+          pattern: (\d+\.\d+\.\d+(?:.+))/bin/(apache-tomcat-(\d+\.\d+\.\d+(?:\.M\d+)?)(\.tar\.gz))$
+          checksums:
+              md5: (\d+\.\d+\.\d+(?:.+))/bin/(apache-tomcat-(\d+\.\d+\.\d+(?:\.M\d+)?)(\.tar\.gz\.md5))$
+              sha1: (\d+\.\d+\.\d+(?:.+))/bin/(apache-tomcat-(\d+\.\d+\.\d+(?:\.M\d+)?)(\.tar\.gz\.sha1))$
+          signature: (\d+\.\d+\.\d+(?:.+))/bin/(apache-tomcat-(\d+\.\d+\.\d+(?:\.M\d+)?)(\.tar\.gz\.asc))$
+      .zip:
+          pattern: (\d+\.\d+\.\d+(?:.+))/bin/(apache-tomcat-(\d+\.\d+\.\d+(?:\.M\d+)?)(\.zip))$
+          checksums:
+              md5: (\d+\.\d+\.\d+(?:.+))/bin/(apache-tomcat-(\d+\.\d+\.\d+(?:\.M\d+)?)(\.zip\.md5))$
+              sha1: (\d+\.\d+\.\d+(?:.+))/bin/(apache-tomcat-(\d+\.\d+\.\d+(?:\.M\d+)?)(\.zip\.sha1))$
+          signature: (\d+\.\d+\.\d+(?:.+))/bin/(apache-tomcat-(\d+\.\d+\.\d+(?:\.M\d+)?)(\.zip\.asc))$
