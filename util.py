@@ -128,7 +128,7 @@ class PatternTree:
         return search_pattern_tree(self.pattern_tree)
 
 
-def filter_versions(versions, version_constraints=None, sort_criteria=None, normalize_version= None):
+def filter_versions(versions, version_constraints=None, sort_criteria=None, normalize_version=None):
     if sort_criteria is None:
         sort_criteria = ['major']
 
@@ -194,21 +194,21 @@ def list_docker_hub_image_tags(repository):
     return tags
 
 
-def remove_duplicate_tags(tags):
-    unique_tags = []
+def group_tags(tags):
+    tag_groups = []
     for tag in tags:
         append = True
-        for index, unique_tag in enumerate(unique_tags):
-            if tag.startswith(unique_tag):
-                unique_tags[index] = tag
-                append = False
-                break
-            elif unique_tag.startswith(tag):
-                append = False
-                break
+        for tag_group in tag_groups:
+            for tag_group_tag in tag_group:
+                if tag.startswith(tag_group_tag) or tag_group_tag.startswith(tag):
+                    append = False
+                    tag_group.append(tag)
+                    break
         if append:
-            unique_tags.append(tag)
-    return unique_tags
+            tag_groups.append([tag])
+    for tag_group in tag_groups:
+        tag_group.sort(lambda x, y: -cmp(len(x), len(y)))
+    return tag_groups
 
 
 def deep_scrape(starting_urls, depth=-1, url_patterns=None):
@@ -240,4 +240,3 @@ def normalize_version_to_semver(version):
     if match.group(2):
         return match.group(1) + '-' + match.group(2)
     return match.group(1)
-

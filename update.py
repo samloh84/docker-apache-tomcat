@@ -47,14 +47,17 @@ def render_apache_tomcat_dockerfiles(data, config, update_all_versions=False, fo
             base_repository_name = base_repository[base_repository.rfind('/') + 1:]
             base_repository_tags = [tag['name'] for tag in list_docker_hub_image_tags(base_repository) if
                                     tag['name'] != 'latest']
-            base_repository_tags = remove_duplicate_tags(base_repository_tags)
+            base_repository_tag_groups = group_tags(base_repository_tags)
 
-            for base_repository_tag in base_repository_tags:
+            for base_repository_tag_group in base_repository_tag_groups:
+                base_repository_tag = base_repository_tag_group[0]
                 base_image_name = base_repository + ':' + base_repository_tag
 
                 dockerfile_context = os.path.join(os.getcwd(), version, base_repository_name + base_repository_tag)
 
-                tags = [version, version + '-' + base_repository_name + base_repository_tag]
+                tags = [version]
+                for tag in base_repository_tag_group:
+                    tags.append(version + '-' + base_repository_name + tag)
                 version_info = semver.parse_version_info(normalize_version_to_semver(version))
 
                 base_os = re.compile('centos|alpine|ubuntu|debian|fedora|rhel').search(base_repository_tag).group(0)
