@@ -31,6 +31,7 @@ def render_apache_tomcat_dockerfiles(data, config, update_all_versions=False, fo
     repository_name = config['repository_name']
     base_repositories = config['base_repositories']
     template_files = config['templates']
+    registries = config.get('registries')
 
     versions = data['versions'].keys()
 
@@ -72,7 +73,8 @@ def render_apache_tomcat_dockerfiles(data, config, update_all_versions=False, fo
                     'config': config,
                     'base_os': base_os,
                     'repository_name': repository_name,
-                    'tags': tags
+                    'tags': tags,
+                    'registries':registries
                 }
 
                 pprint(render_data)
