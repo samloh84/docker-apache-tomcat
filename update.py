@@ -19,8 +19,9 @@ def update_apache_tomcat_data(data, config, update_all_versions=False):
     if update_all_versions:
         versions_to_update = versions
     else:
-        versions_to_update = filter_versions(versions, config.get('version_constraints'),
-                                             normalize_version=normalize_version_to_semver)
+        versions_to_update = filter_latest_versions(versions,
+                                                    version_constraints=config.get('version_constraints'),
+                                                    normalize_version=normalize_version_to_semver)
 
     _merge(data, {'versions': scraper.list_version_files(versions)}, {'last_updated': datetime_to_timestamp()})
     return data
@@ -38,8 +39,9 @@ def render_apache_tomcat_dockerfiles(data, config, update_all_versions=False, fo
     if update_all_versions:
         versions_to_update = versions
     else:
-        versions_to_update = filter_versions(versions, config.get('version_constraints'),
-                                             normalize_version=normalize_version_to_semver)
+        versions_to_update = filter_latest_versions(versions,
+                                                    version_constraints=config.get('version_constraints'),
+                                                    normalize_version=normalize_version_to_semver)
 
     for version in versions_to_update:
         version_files = data['versions'][version]
@@ -59,6 +61,7 @@ def render_apache_tomcat_dockerfiles(data, config, update_all_versions=False, fo
                 tags = [version]
                 for tag in base_repository_tag_group:
                     tags.append(version + '-' + base_repository_name + tag)
+
                 version_info = semver.parse_version_info(normalize_version_to_semver(version))
 
                 base_os = re.compile('centos|alpine|ubuntu|debian|fedora|rhel').search(
@@ -74,7 +77,7 @@ def render_apache_tomcat_dockerfiles(data, config, update_all_versions=False, fo
                     'base_os': base_os,
                     'repository_name': repository_name,
                     'tags': tags,
-                    'registries':registries
+                    'registries': registries
                 }
 
                 pprint(render_data)
