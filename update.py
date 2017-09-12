@@ -20,7 +20,8 @@ def update_apache_tomcat_data(data, config, update_all_versions=False):
     if update_all_versions or version_constraints is None:
         versions_to_update = versions
     else:
-        versions_to_update = filter_latest_versions(versions, version_constraints,
+        versions_to_update = filter_latest_versions(versions,
+                                                    version_constraints=version_constraints,
                                                     normalize_version=normalize_version_to_semver)
 
     pydash.objects.merge(data, {'versions': scraper.list_version_files(versions)},

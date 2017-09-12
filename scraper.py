@@ -91,7 +91,11 @@ def main(argv):
     scraper = ApacheTomcatScraper(config)
     versions = scraper.list_version_urls()
     print_yaml(versions)
-    files = scraper.list_version_files(versions.keys())
+    filtered_versions = filter_latest_versions(versions.keys(),
+                                               version_constraints=config.get('version_constraints'),
+                                               normalize_version=normalize_version_to_semver)
+    print_yaml(filtered_versions)
+    files = scraper.list_version_files(filtered_versions)
     print_yaml(files)
 
 
