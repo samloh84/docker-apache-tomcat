@@ -13,7 +13,7 @@ build:
 
 push:
 	set -x; \
-	for TAG in $(TAGS); do sudo docker push $(REPOSITORY_NAME):$${TAG}; done
+	for TAG in $(TAGS); do sudo docker push $(REPOSITORY_NAME):$${TAG}; done; \
 
 run:
 	set -x; \
@@ -22,8 +22,6 @@ run:
 	DOCKER_RUN_ARGS+="--interactive "; \
 	DOCKER_RUN_ARGS+="--rm "; \
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
-	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
-	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME}
 
@@ -34,8 +32,6 @@ bash:
 	DOCKER_RUN_ARGS+="--interactive "; \
 	DOCKER_RUN_ARGS+="--rm "; \
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
-	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
-	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME} bash
 
@@ -48,8 +44,6 @@ sudo:
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
 	DOCKER_RUN_ARGS+="--user 0 "; \
 	DOCKER_RUN_ARGS+="--privileged "; \
-	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
-	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME} bash
 

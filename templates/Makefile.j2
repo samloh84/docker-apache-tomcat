@@ -1,5 +1,7 @@
 REPOSITORY_NAME := {{ repository_name }}
-REGISTRIES := {{ registries }}
+{% if registries -%}
+REGISTRIES := {{ registries | join(' ') }}
+{%- endif -%}
 TAGS := {{ tags | join(' ') }}
 CONTAINER_NAME := $(shell echo $(REPOSITORY_NAME) | sed -e 's/[^a-zA-Z0-9_.-]/-/g')
 
@@ -10,19 +12,26 @@ build:
 	set -x; \
 	DOCKER_BUILD_ARGS=""; \
 	for TAG in $(TAGS); do DOCKER_BUILD_ARGS+="-t $(REPOSITORY_NAME):$${TAG} "; done; \
+	{% if registries -%}
+	for REGISTRY in $(REGISTRIES); do \
+	for TAG in $(TAGS); do \
+	DOCKER_BUILD_ARGS+="-t $${REGISTRY}/$(REPOSITORY_NAME):$${TAG} "; \
+	done; \
+	done; \
+	{%- endif -%}
 	sudo docker build $${DOCKER_BUILD_ARGS} .
 
 push:
 	set -x; \
-	if [[ -z "$(REGISTRIES)" ]]; then \
-	for TAG in $(TAGS); do sudo docker push $(REPOSITORY_NAME):$${TAG}; done; \
-	else \
+	{% if registries -%}
 	for REGISTRY in $(REGISTRIES); do \
 	for TAG in $(TAGS); do \
 	sudo docker push $${REGISTRY}/$(REPOSITORY_NAME):$${TAG}; \
 	done; \
 	done; \
-	fi
+	{%- else -%}
+	for TAG in $(TAGS); do sudo docker push $(REPOSITORY_NAME):$${TAG}; done;
+	{%- endif %}
 
 run:
 	set -x; \
@@ -31,8 +40,6 @@ run:
 	DOCKER_RUN_ARGS+="--interactive "; \
 	DOCKER_RUN_ARGS+="--rm "; \
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
-	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
-	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME}
 
@@ -44,8 +51,6 @@ run:
 	DOCKER_RUN_ARGS+="--interactive "; \
 	DOCKER_RUN_ARGS+="--rm "; \
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
-	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
-	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME} {{ container_shell }}
 
@@ -58,8 +63,6 @@ sudo:
 	DOCKER_RUN_ARGS+="--name $(CONTAINER_NAME) "; \
 	DOCKER_RUN_ARGS+="--user 0 "; \
 	DOCKER_RUN_ARGS+="--privileged "; \
-	DOCKER_RUN_ARGS+="--publish 8080:8080 "; \
-	DOCKER_RUN_ARGS+="--publish 8443:8443 "; \
 	for TAG in $(TAGS); do IMAGE_NAME="$(REPOSITORY_NAME):$${TAG} "; break; done; \
 	sudo docker run $${DOCKER_RUN_ARGS} $${IMAGE_NAME} {{ container_shell }}
 
