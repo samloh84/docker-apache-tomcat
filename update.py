@@ -4,6 +4,7 @@ import os
 import sys
 from pprint import pprint
 
+import shutil
 from jinja2 import Environment, FileSystemLoader
 import pydash
 
@@ -85,6 +86,7 @@ def render_apache_tomcat_dockerfiles(data, config, update_all_versions=False, fo
     base_repositories = config['base_repositories']
     template_files = config['templates']
     registries = config.get('registries')
+    common_files = config.get('common_files')
 
     versions = data['versions'].keys()
 
@@ -148,6 +150,12 @@ def render_apache_tomcat_dockerfiles(data, config, update_all_versions=False, fo
                     if not os.path.exists(template_render_path) or force_update:
                         write_file(template_render_path, template.render(render_data))
                         print 'Rendered template: ' + template_render_path
+
+                for common_file in common_files:
+                    common_file_path = os.path.join(dockerfile_context, common_file)
+                    if not os.path.exists(common_file_path) or force_update:
+                        shutil.copy2(common_file, common_file_path)
+                        print 'Copied file: ' + common_file_path
 
 
 def main(argv):

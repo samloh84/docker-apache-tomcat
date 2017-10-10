@@ -1,5 +1,5 @@
 REPOSITORY_NAME := samloh84/apache-tomcat
-TAGS := 9.0.0.M26 9.0.0.M26-oracle-java-jdk7u80-b15-centos7 9.0.0.M26-oracle-java-jdk7u80-b15
+TAGS := 7.0.82 7.0.82-oracle-java-jre7u80-b15-centos7 7.0.82-oracle-java-jre7u80-b15
 CONTAINER_NAME := $(shell echo $(REPOSITORY_NAME) | sed -e 's/[^a-zA-Z0-9_.-]/-/g')
 
 .PHONY: all clean build push bash sudo run exec rm rmi

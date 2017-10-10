@@ -7,6 +7,9 @@ templates:
   - Dockerfile
   - Makefile
 
+common_files:
+  - enable_https.py
+
 starting_url: http://www-eu.apache.org/dist/tomcat/
 scraper_url_patterns:
   - http://www-eu.apache.org/dist/tomcat/tomcat-\d+/$
