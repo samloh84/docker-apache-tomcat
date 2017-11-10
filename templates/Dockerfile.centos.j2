@@ -39,11 +39,34 @@ ARG INSTALL_DIR=${INSTALL_DIR_ROOT}/${PRODUCT_VERSION}
 {{ signature_build_args }}
 {%- endif %}
 
+
+ARG APACHE_PORTABLE_RUNTIME_URL="http://www-eu.apache.org/dist/apr/apr-1.6.3.tar.gz"
+ARG APACHE_PORTABLE_RUNTIME="apr-1.6.3.tar.gz"
+ARG APACHE_PORTABLE_RUNTIME_GPG_KEYS_URL="https://people.apache.org/keys/group/apr.asc"
+ARG APACHE_PORTABLE_RUNTIME_GPG_KEYS=apr.asc
+ARG APACHE_PORTABLE_RUNTIME_SIGNATURE_URL="http://www.apache.org/dist/apr/apr-1.6.3.tar.gz.asc"
+ARG APACHE_PORTABLE_RUNTIME_SIGNATURE="apr-1.6.3.tar.gz.asc"
+
 USER ${ROOT_UID}
 
 RUN \
 mkdir -p ${TEMP_DIR} ${INSTALL_DIR} && \
 cd ${TEMP_DIR} && \
+{{ macros.curl('${APACHE_PORTABLE_RUNTIME_URL}', '${APACHE_PORTABLE_RUNTIME}') }} && \
+{{ macros.curl('${APACHE_PORTABLE_RUNTIME_GPG_KEYS_URL}', '${APACHE_PORTABLE_RUNTIME_GPG_KEYS}') }} && \
+{{ macros.import_gpg_key_file('${APACHE_PORTABLE_RUNTIME_GPG_KEYS}') }} && \
+{{ macros.curl('${APACHE_PORTABLE_RUNTIME_SIGNATURE_URL}', '${APACHE_PORTABLE_RUNTIME_SIGNATURE}') }} && \
+{{ macros.gpg_verify('${APACHE_PORTABLE_RUNTIME_SIGNATURE}') }} && \
+mkdir -p ${TEMP_DIR}/apr && \
+{{ macros.extract_tarball('${APACHE_PORTABLE_RUNTIME}', '${TEMP_DIR}/apr') }} && \
+pushd ${TEMP_DIR}/apr && \
+yum install -y autoconf libtool gcc-c++ make && \
+./configure && \
+make && \
+make install && \
+yum remove -y autoconf libtool gcc-c++ make && \
+yum clean all && \
+popd && \
 {% if binaries_build_args -%}
 {{ macros.curl('${APACHE_TOMCAT_BINARIES_URL}', '${APACHE_TOMCAT_BINARIES}') }} && \
 {% if download_and_verify_signature -%}

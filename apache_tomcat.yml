@@ -1,4 +1,4 @@
-last_updated: 1509089454
+last_updated: 1510299048
 versions:
   7.0.82:
     binaries:
@@ -6,90 +6,90 @@ versions:
         checksums:
           md5:
             filename: apache-tomcat-7.0.82.tar.gz.md5
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz.md5
+            url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz.md5
           sha1:
             filename: apache-tomcat-7.0.82.tar.gz.sha1
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz.sha1
+            url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz.sha1
         filename: apache-tomcat-7.0.82.tar.gz
         signature:
           filename: apache-tomcat-7.0.82.tar.gz.asc
-          url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz.asc
-        url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz
+          url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz.asc
+        url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz
       .zip:
         checksums:
           md5:
             filename: apache-tomcat-7.0.82.zip.md5
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.zip.md5
+            url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.zip.md5
           sha1:
             filename: apache-tomcat-7.0.82.zip.sha1
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.zip.sha1
+            url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.zip.sha1
         filename: apache-tomcat-7.0.82.zip
         signature:
           filename: apache-tomcat-7.0.82.zip.asc
-          url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.zip.asc
-        url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.zip
+          url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.zip.asc
+        url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.zip
     gpg_keys:
       filename: KEYS
-      url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.82/KEYS
+      url: http://www.apache.org/dist/tomcat/tomcat-7/v7.0.82/KEYS
   8.0.47:
     binaries:
       .tar.gz:
         checksums:
           md5:
             filename: apache-tomcat-8.0.47.tar.gz.md5
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.tar.gz.md5
+            url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.tar.gz.md5
           sha1:
             filename: apache-tomcat-8.0.47.tar.gz.sha1
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.tar.gz.sha1
+            url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.tar.gz.sha1
         filename: apache-tomcat-8.0.47.tar.gz
         signature:
           filename: apache-tomcat-8.0.47.tar.gz.asc
-          url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.tar.gz.asc
-        url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.tar.gz
+          url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.tar.gz.asc
+        url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.tar.gz
       .zip:
         checksums:
           md5:
             filename: apache-tomcat-8.0.47.zip.md5
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.zip.md5
+            url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.zip.md5
           sha1:
             filename: apache-tomcat-8.0.47.zip.sha1
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.zip.sha1
+            url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.zip.sha1
         filename: apache-tomcat-8.0.47.zip
         signature:
           filename: apache-tomcat-8.0.47.zip.asc
-          url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.zip.asc
-        url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.zip
+          url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.zip.asc
+        url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/bin/apache-tomcat-8.0.47.zip
     gpg_keys:
       filename: KEYS
-      url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.47/KEYS
+      url: http://www.apache.org/dist/tomcat/tomcat-8/v8.0.47/KEYS
   8.5.23:
     binaries:
       .tar.gz:
         checksums:
           md5:
             filename: apache-tomcat-8.5.23.tar.gz.md5
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz.md5
+            url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz.md5
           sha1:
             filename: apache-tomcat-8.5.23.tar.gz.sha1
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz.sha1
+            url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz.sha1
         filename: apache-tomcat-8.5.23.tar.gz
         signature:
           filename: apache-tomcat-8.5.23.tar.gz.asc
-          url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz.asc
-        url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz
+          url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz.asc
+        url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz
       .zip:
         checksums:
           md5:
             filename: apache-tomcat-8.5.23.zip.md5
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.zip.md5
+            url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.zip.md5
           sha1:
             filename: apache-tomcat-8.5.23.zip.sha1
-            url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.zip.sha1
+            url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.zip.sha1
         filename: apache-tomcat-8.5.23.zip
         signature:
           filename: apache-tomcat-8.5.23.zip.asc
-          url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.zip.asc
-        url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.zip
+          url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.zip.asc
+        url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.zip
     gpg_keys:
       filename: KEYS
-      url: http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.23/KEYS
+      url: http://www.apache.org/dist/tomcat/tomcat-8/v8.5.23/KEYS
